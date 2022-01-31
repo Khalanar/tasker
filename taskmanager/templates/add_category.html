@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h3 class="teal-text text-darken-3">Add a Category</h3>
+
+<div class="row">
+    <form class="col s8 card-panel center-align offset-s2" method="POST" action="{{ url_for('add_category') }}">
+        <div class="row">
+            <div class="input-field col s12">
+                <input id="category_name" name="category_name" minlength="3" maxlength="25" required type="text" class="validate">
+                <label for="category_name">Category name</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <button type="submit" class="btn teal">Add Category</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+{% endblock %}
+

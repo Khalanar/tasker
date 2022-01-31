@@ -4,18 +4,73 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- materializecss -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" type="text/css">
+  <!-- materialize icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" type="text/css">
 
-  <title>A Basic HTML5 Template</title>
+  <title>Tasker</title>
 
   <link rel="stylesheet" href="css/styles.css?v=1.0">
 
 </head>
 
 <body>
-    <h1>Hello World!</h1>
+    <header>
+      <!-- Top navbar -->
+      <nav class="teal darken-2">
+        <div class="nav-wrapper">
+          <a href="{{ url_for('home') }}" class="brand-logo">Tasker</a>
+          <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+          <ul class="right hide-on-med-and-down">
+            <li><a href="{{ url_for('home') }}">Home</a></li>
+            <li><a href="{{ url_for('tasks') }}">Create Tasks</a></li>
+            <li><a href="{{ url_for('categories') }}">Categories</a></li>
+          
+          </ul>
+        </div>
+      </nav>
+      <!-- Mobile navbar -->
+      <ul class="sidenav" id="mobile-demo">
+        <li><a href="{{ url_for('home') }}">Home</a></li>
+        <li><a href="{{ url_for('tasks') }}">Tasks</a></li>
+        <li><a href="{{ url_for('categories') }}">Categories</a></li>
+      </ul>
+    </header>
     
+    <!-- Main content -->
+    <main class="container">
+      {% block content %}
+      {% endblock %}
+    </main>
     
-  <!-- your content here... -->
-  <script src="js/scripts.js"></script>
+
+    <!-- Footer -->
+    <footer class="page-footer teal darken-1">
+      <div class="container">
+        <div class="row">
+          <div class="col l6 s12">
+            <p class="grey-text text-lighten-4">Flask + Materliaze project webapp</p>
+          </div>
+          <div class="col l4 offset-l2 s12">
+            <ul>
+              <li><a class="grey-text text-lighten-3" href="#!">Link 1</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-copyright">
+        <div class="container">
+        © 2022 Pablo Sanchez - <a href="https://www.github.com/khalanar" target="_blank">github/khalanar</a>
+        </div>
+      </div>
+    </footer>
+
+
+ 
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
 </body>
 </html>
