@@ -45,7 +45,6 @@ def edit_category(category_id):
         return redirect(url_for('categories'))
     return render_template("edit_category.html", category=category)
 
-
 @app.route("/delete_category/<int:category_id>")
 def delete_category(category_id):
     """DS"""
@@ -61,10 +60,10 @@ def add_task():
     if request.method == "POST":
         task = Task(
             task_name = request.form.get("task_name"),
-            task_description =  request.form.get("task_description"),
-            is_urgent =  bool(True if request.form.get("is_urgent") else False),
-            due_date =  request.form.get("due_date"),
-            category_id =  request.form.get("category_id"),
+            task_description = request.form.get("task_description"),
+            is_urgent = bool(True if request.form.get("is_urgent") else False),
+            due_date = request.form.get("due_date"),
+            category_id = request.form.get("category_id"),
         )
         category = Category(category_name=request.form.get("category_name"))
         db.session.add(task)
@@ -72,3 +71,27 @@ def add_task():
         return redirect(url_for("home"))
 
     return render_template("add_task.html", categories=categories)
+
+@app.route("/edit_task/<int:task_id>", methods=["GET", "POST"])
+def edit_task(task_id):
+    """DS"""
+    task = Task.query.get_or_404(task_id)
+    categories = list(Category.query.order_by(Category.category_name).all())
+    if request.method == "POST":
+        task.task_name = request.form.get("task_name")
+        task.task_description = request.form.get("task_description")
+        task.is_urgent = bool(True if request.form.get("is_urgent") else False)
+        task.due_date = request.form.get("due_date")
+        task.category_id = request.form.get("category_id")
+        db.session.commit()
+        return redirect(url_for("tasks"))
+
+    return render_template("edit_task.html", task=task, categories=categories)
+
+@app.route("/delete_task/<int:task_id>")
+def delete_task(task_id):
+    """DS"""
+    task = Task.query.get_or_404(task_id)
+    db.session.delete(task)
+    db.session.commit()
+    return redirect(url_for("tasks"))
